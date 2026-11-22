@@ -1,9 +1,4 @@
-type SearchBarProps = {
-  value: string;
-  onChange: (nuevoValor: string) => void;
-};
-
-export function SearchBar({ value, onChange }: SearchBarProps) {
+export function SearchBar({ value, onChange }) {
   return (
     <input
       className="search-bar"
