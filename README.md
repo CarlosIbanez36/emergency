@@ -1,78 +1,51 @@
-# React + TypeScript + Vite
+# 🚨 FUNK EMERGENCY
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Kit de emergencia musical contra el mal humor. *En caso de bad vibes, rompa el vidrio.*
 
-Currently, two official plugins are available:
+Un botón de pánico que administra una dosis aleatoria de funk/jazz y un buscador para encontrar tu propia medicina, con un mini-player para escuchar previews de 30 segundos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- [React 19](https://react.dev/) + [Vite](https://vite.dev/)
+- JavaScript con JSX
+- CSS propio con variables y Google Fonts (Shrikhand + Archivo)
+- [iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/) (gratis, sin API key y con CORS habilitado)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Scripts
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+| Comando | Acción |
+| --- | --- |
+| `npm install` | Instala las dependencias |
+| `npm run dev` | Servidor de desarrollo |
+| `npm run build` | Genera el build de producción |
+| `npm run preview` | Previsualiza el build |
+| `npm run lint` | Ejecuta ESLint |
 
-## Expanding the ESLint configuration
+## Estructura
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+src/
+  components/
+    Header.jsx          # logo + tagline
+    EmergencyButton.jsx # botón de pánico
+    SearchBar.jsx       # input controlado
+  App.jsx               # orquesta todo
+  main.jsx              # punto de entrada
+  index.css             # paleta, fuentes y estilos base
+docs/
+  brief.md              # brief y misiones del proyecto
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## API
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Búsqueda de canciones y previews de 30 segundos:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+https://itunes.apple.com/search?term=funk+jazz&entity=song&limit=24
 ```
+
+La API limita a ~20 peticiones por minuto, por eso el buscador debe usar *debounce*.
+
+## Estado
+
+En desarrollo. Completado: UI base (header, botón de pánico y buscador) y primer `fetch` a iTunes. Siguientes pasos: pintar resultados, *debounce*, mini-player y botón de pánico funcional. El detalle está en [docs/brief.md](docs/brief.md).
